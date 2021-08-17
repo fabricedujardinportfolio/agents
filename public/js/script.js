@@ -68,7 +68,7 @@ function set_poles(item) {
 	$('#nameUserListe').hide();	
 }
   
-function update(dataid,poleService,name,firstName,fonction,poles_services_id) {		
+function update(dataid,poleService,name,firstName,fonction,poles_services_id,role_ressource) {		
 	// id du post
 	console.log(dataid); 
 	console.log(poleService); 
@@ -76,6 +76,7 @@ function update(dataid,poleService,name,firstName,fonction,poles_services_id) {
 	console.log(firstName); 
 	console.log(fonction); 
 	console.log(poles_services_id); 
+	console.log(role_ressource); 
 
 	// $(".active-"+dataid).hide();	
 $("#button-absence-"+dataid).hide();
@@ -118,5 +119,14 @@ class="form-control" name="firstName"
 $(".function-"+dataid).html(`<input placeholder='`+fonction+`' type="text" value="`+fonction+`"  onfocus="(this.type='text')" onblur="(this.type='text')"
 class="form-control" name="function" 
 >`);
+
+$(".role_ressource-"+dataid).html(`
+<select class="form-select" id="inputGroupSelect01" name="role_ressource" type="text"  placeholder='`+role_ressource+`' 
+onblur="(this.type='text')">		
+<option value="`+role_ressource+`">Votre anciene valeur : `+role_ressource+`</option>                
+<option  value="0">USER​</option>
+<option  value="1">Secrétaire</option>
+<option  value="2">ADMIN​</option>
+</select>` );
 
 }

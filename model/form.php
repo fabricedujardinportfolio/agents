@@ -43,14 +43,17 @@ if(isset($_POST['valider']))
         $idUser = $_POST['idUser'];
         // var_dump($idUser);
         $poles_services_id = $_POST['poles_services_id'];
-        // var_dump($poles_services_id);
+        $role_ressource =$_POST['role_ressource'];
+        $role_ressourceInt = (int)$role_ressource;
+        $firstName = $_POST['firstName'];
+        var_dump($name,$firstName,$function,$idUser,$role_ressource,$role_ressourceInt);
         // $active = $_POST['button-active'] ;
         // $idUser = $_POST['idUser'] ;
-        $stmt = $conn->prepare('UPDATE `agents` SET name = ?, first_name=? , `function` = ? ,poles_services_id= ? WHERE agents.id = ?');
-        $stmt->execute([$name, $firstName , $function , $poles_services_id , $idUser]);
+        $stmt = $conn->prepare('UPDATE `agents` SET name = ?, first_name=? , `function` = ? ,poles_services_id= ? ,role_ressource= ? WHERE agents.id = ?');
+        $stmt->execute([$name, $firstName , $function , $poles_services_id ,$role_ressourceInt, $idUser]);
         // $test = header('refresh:2; index.php');
         $msgupdate = '<spans class="alert alert-success mt-5 mt-md-0" role="alert">Mis à jour avec succés!</span>';
-        header("refresh:2; /index.php");
+        // header("refresh:2; /index.php");
       }
         else{
         //  test
@@ -81,7 +84,7 @@ if(!isset($_SESSION["loggedIn"]) || $_SESSION["loggedIn"] == false):
     <?php 
   try {                              
     $pole_service = "pole_service";
-    $stmt = $conn->prepare('SELECT agents.id,agents.poles_services_id,agents.name,agents.first_name,agents.function,agents.active,poles_services.name_pole_service 
+    $stmt = $conn->prepare('SELECT agents.id,agents.poles_services_id,agents.name,agents.first_name,agents.function,agents.active,poles_services.name_pole_service,role_ressource
     FROM `poles_services`,`agents`
     WHERE poles_services_id=agents.poles_services_id 
     AND agents.poles_services_id=poles_services.id
@@ -105,7 +108,8 @@ if(!isset($_SESSION["loggedIn"]) || $_SESSION["loggedIn"] == false):
       <div class="col-md-2 align-self-center"> Nom </div>
       <div class="col-md-2 text-md-start ps-md-5 align-self-center"> Prénom </div>
       <div class="col-md-2 text-md-end align-self-center"> Fonction</div>
-      <div class="col-md-2  align-self-center">Active</div>
+      <div class="col-md-1  align-self-center">Active</div>
+      <div class="col-md-1  align-self-center">Rôle ressources</div>
       <div class="col-md-2  text-center align-self-center">Action</div>
     </div>
 
@@ -131,7 +135,7 @@ if(!isset($_SESSION["loggedIn"]) || $_SESSION["loggedIn"] == false):
             <?=$post['function']?>
             </span>
           </div>
-          <div class="col-md-2  text-md-center mt-2 active-<?=$post['id']?>"  >
+          <div class="col-md-1 text-md-center mt-2 active-<?=$post['id']?>"  >
           <input type="text" class="d-none" name="idUser" value="<?=$post['id']?>">
             <?php 
             if ($post['active'] == 1) {
@@ -140,11 +144,24 @@ if(!isset($_SESSION["loggedIn"]) || $_SESSION["loggedIn"] == false):
               echo"NON";
             }
             ?>
+          </div>          
+          <div class="col-md-1 text-md-end mt-2"> 
+          <span class="role_ressource-<?=$post['id']?>">
+            <?php 
+            if ($post['role_ressource'] == 0) {
+              echo"USER";
+            }else if($post['role_ressource'] == 1 ) {
+              echo"Secrétaire";
+            }else{
+              echo"Admin";
+            }
+            ?>
+            </span>
           </div>
           <div class="col-md-2  text-center align-self-center">
         <span>
         <button type='button' id="button-absence-<?=$post['id']?>" class='btn btn-sm btn-outline-secondary '
-                onclick="update('<?=$post['id']?>','<?=$post['name_pole_service']?>','<?=$post['name']?>','<?=$post['first_name']?>','<?=$post['function']?>','<?=$post['poles_services_id']?>')">Modifier</button>
+                onclick="update('<?=$post['id']?>','<?=$post['name_pole_service']?>','<?=$post['name']?>','<?=$post['first_name']?>','<?=$post['function']?>','<?=$post['poles_services_id']?>','<?=$post['role_ressource']?>')">Modifier</button>
             <button id="button-valider-absence-<?=$post['id']?>"  type="submit" class="btn btn-sm" name="valider" style="background-color:#2e4f9b; color:white ;display:none" >valider</button>
         </span>
           

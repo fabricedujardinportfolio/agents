@@ -8,6 +8,7 @@ require_once '../classes/database.php';
 
 if(isset($_REQUEST['valider']))	//button name is "btn_login"
 {
+    // var_dump($_POST);  
 	$email		= strip_tags($_REQUEST["email"]);	//textbox name "txt_username_email"
 	$password	= strip_tags($_REQUEST["passwords"]);		//textbox name "txt_password"
 	if(empty($email)){
@@ -23,11 +24,12 @@ if(isset($_REQUEST['valider']))	//button name is "btn_login"
 			$select_stmt=$conn->prepare("SELECT agents.id,agents.name,agents.first_name,agents.function,agents.passwords,agents.active,agents.email,agents.poles_services_id,agents_has_applications.agents_id,agents_has_applications.applications_id,agents_has_applications.droit,poles_services.name_pole_service,poles_services.phone FROM `agents`,`agents_has_applications`,`poles_services`,`applications` WHERE agents.id= agents_has_applications.agents_id AND poles_services.id=agents.poles_services_id AND agents_has_applications.applications_id=applications.id AND agents.email=:uemail"); //sql select query
 			$select_stmt->execute(array(':uemail'=>$email));	//execute query with bind parameter
 			$row=$select_stmt->fetch(PDO::FETCH_ASSOC);	            
-            // var_dump($row);   		
+            // var_dump($select_stmt);   		
 			if($select_stmt->rowCount() > 0)	//check condition database record greater zero after continue
 			{
 				if($email==$row["email"]) //check condition user taypable "email" is match from database "email" after continue
 				{
+                    // print('cool');
                     $_SESSION["user_pole"] = $row["poles_services_id"];
                     $role = $_SESSION["user_pole"]; 
                     $_SESSION["agentsid"] = $row["id"];
