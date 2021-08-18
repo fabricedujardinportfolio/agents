@@ -46,14 +46,14 @@ if(isset($_POST['valider']))
         $role_ressource =$_POST['role_ressource'];
         $role_ressourceInt = (int)$role_ressource;
         $firstName = $_POST['firstName'];
-        var_dump($name,$firstName,$function,$idUser,$role_ressource,$role_ressourceInt);
+        // var_dump($name,$firstName,$function,$idUser,$role_ressource,$role_ressourceInt);
         // $active = $_POST['button-active'] ;
         // $idUser = $_POST['idUser'] ;
         $stmt = $conn->prepare('UPDATE `agents` SET name = ?, first_name=? , `function` = ? ,poles_services_id= ? ,role_ressource= ? WHERE agents.id = ?');
         $stmt->execute([$name, $firstName , $function , $poles_services_id ,$role_ressourceInt, $idUser]);
         // $test = header('refresh:2; index.php');
         $msgupdate = '<spans class="alert alert-success mt-5 mt-md-0" role="alert">Mis à jour avec succés!</span>';
-        // header("refresh:2; /index.php");
+        header("refresh:2; /index.php");
       }
         else{
         //  test
