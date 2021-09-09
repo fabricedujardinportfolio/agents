@@ -27,11 +27,12 @@ $msg = "";
         // var_dump($passwords);
         $active = $_POST["active"];
         // var_dump($active);
-        $email = $_POST["email"];
+        $email = $_POST["email"];        
+        $role_ressource = 0;
         // var_dump($email);
 
-        $stmt = $conn->prepare('INSERT INTO `agents` VALUES ("",?, ?, ?, ?, ?, ? ,? )');
-        $stmt->execute([$name,$first_name,$function,$passwords,$active,$email,$pole_service]);  
+        $stmt = $conn->prepare('INSERT INTO `agents` VALUES ("",?, ?, ?, ?, ?, ? ,?,? )');
+        $stmt->execute([$name,$first_name,$function,$passwords,$active,$email,$pole_service,$role_ressource]);  
         $msg = '<div class="alert alert-success" role="alert">
         Créer avec succès!
       </div>';
