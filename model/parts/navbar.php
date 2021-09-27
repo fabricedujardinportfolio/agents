@@ -46,12 +46,12 @@ if(!isset($_SESSION["loggedIn"]) || $_SESSION["loggedIn"] == false):
         class="col-md-6 col-12 d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none flex-wrap ms-md-3 justify-content-center justify-content-md-start">
         <span class="fs-4 text-uppercase">Gestion des utilisateurs</span>        
     </a>
-    <ul class="nav nav-pills">
+    <ul class="nav nav-pills">        
+        <li class="nav-item"><a href="http://mot-de-passe-dev/" class="nav-link text-uppercase" style="color:#2e4f9b;">Changer de mot de passe</a></li>
         <li class="nav-item"><a href="<?php echo $logout_path; ?>" class="nav-link text-uppercase" style="color:#2e4f9b;">Déconnexion</a></li>
     </ul>
     <div class="col-12 ms-5">    
     <ul class="nav nav-pills">
-        <li class="nav-item" ><a href="views/login_mdp.php" class="nav-link active" style="background-color:#2e4f9b;" target="_blank">Modifier mon mot de passe</a></li>
         <li class="nav-item ps-3" ><a href="views/add_agents.php" class="nav-link active" style="background-color:#2e4f9b;" target="_blank">Ajouter un agent</a></li>
     </ul>
     </div>
