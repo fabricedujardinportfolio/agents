@@ -47,7 +47,7 @@ if(!isset($_SESSION["loggedIn"]) || $_SESSION["loggedIn"] == false):
         <span class="fs-4 text-uppercase">Gestion des utilisateurs</span>        
     </a>
     <ul class="nav nav-pills">        
-        <li class="nav-item"><a href="http://mot-de-passe-dev/" class="nav-link text-uppercase" style="color:#2e4f9b;">Changer de mot de passe</a></li>
+        <li class="nav-item"><a href="http://mot-de-passe/" class="nav-link text-uppercase" style="color:#2e4f9b;">Changer de mot de passe</a></li>
         <li class="nav-item"><a href="<?php echo $logout_path; ?>" class="nav-link text-uppercase" style="color:#2e4f9b;">Déconnexion</a></li>
     </ul>
     <div class="col-12 ms-5">    
