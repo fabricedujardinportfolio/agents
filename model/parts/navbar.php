@@ -7,6 +7,27 @@
   $dashboard_path = $root . "views/dashboard.php";
 ?>
 <!-- SCRIPT ICI -->
+<script>
+function myFunction() {
+  var r = confirm("Attention vous allez quitter l’application pour ouvrir l’application « mot de passe »");
+  
+  if (r == true) {
+    // location.replace("http://ressources/logout");
+    var open = window.open('http://mot-de-passe/');
+    var urlList = [
+    "http://bddagents/views/logout.php"
+  ];
+    for( var i in urlList ){
+      window.location.href = urlList[i];
+        i++;
+    }
+  } else {
+    open = "";
+    return open;
+  }
+  window.open(open);
+}
+</script>
 <style>
 .maxHeight {
     max-height : 43px;
@@ -17,6 +38,7 @@ p {
 }
 
 </style>
+
 </head>
 
 <body>
@@ -47,7 +69,7 @@ if(!isset($_SESSION["loggedIn"]) || $_SESSION["loggedIn"] == false):
         <span class="fs-4 text-uppercase">Gestion des utilisateurs</span>        
     </a>
     <ul class="nav nav-pills">        
-        <li class="nav-item"><a href="http://mot-de-passe/" class="nav-link text-uppercase" style="color:#2e4f9b;">Changer de mot de passe</a></li>
+        <li class="nav-item"><a href="#" class="nav-link text-uppercase" style="color:#2e4f9b;" onclick="myFunction()">Changer de mot de passe</a></li>
         <li class="nav-item"><a href="<?php echo $logout_path; ?>" class="nav-link text-uppercase" style="color:#2e4f9b;">Déconnexion</a></li>
     </ul>
     <div class="col-12 ms-5">    
