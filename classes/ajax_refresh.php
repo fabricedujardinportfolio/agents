@@ -2,11 +2,12 @@
 
 // PDO connect *********
 function connect() {
-    return new PDO('mysql:host=localhost;dbname=giep-master-databass', 'root', '58Lj9pqJNHAabK9O', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+    return new PDO('mysql:host=localhost;dbname=giep-master-databass-test-2', 'root', '58Lj9pqJNHAabK9O', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 }
 
 $pdo = connect();
 $keyword = '%'.$_POST['keyword'].'%';
+// var_dump($keyword);
 $sql = "SELECT * FROM agents WHERE name LIKE (:keyword) OR first_name LIKE (:keyword) ORDER BY name ASC ";
 $query = $pdo->prepare($sql);
 $query->bindParam(':keyword', $keyword, PDO::PARAM_STR);

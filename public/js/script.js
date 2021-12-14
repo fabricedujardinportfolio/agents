@@ -9,7 +9,7 @@ $("#dayNow").val(today);
 }
 // autocomplet : this function will be executed every time we change the text
 function autocomplet() {
-	var keyword = $('#name').val();
+	var keyword = $('#names').val();
 	$.ajax({
 		url: 'classes/ajax_refresh.php',
 		type: 'POST',
@@ -68,7 +68,7 @@ function set_poles(item) {
 	$('#nameUserListe').hide();	
 }
   
-function update(dataid,poleService,name,firstName,fonction,poles_services_id,role_ressource) {		
+function update(dataid,poleService,name,firstName,fonction,poles_services_id,role_ressource,role_absence) {		
 	// id du post
 	console.log(dataid); 
 	console.log(poleService); 
@@ -77,6 +77,7 @@ function update(dataid,poleService,name,firstName,fonction,poles_services_id,rol
 	console.log(fonction); 
 	console.log(poles_services_id); 
 	console.log(role_ressource); 
+	console.log(role_absence); 
 
 	// $(".active-"+dataid).hide();	
 $("#button-absence-"+dataid).hide();
@@ -127,6 +128,15 @@ onblur="(this.type='text')">
 <option  value="0">USER​</option>
 <option  value="1">Secrétaire</option>
 <option  value="2">ADMIN​</option>
+</select>` );
+
+$(".role_absence-"+dataid).html(`
+<select class="form-select" id="inputGroupSelect02" name="role_absences" type="text"  placeholder='`+role_absence+`' 
+onblur="(this.type='text')">		
+<option value="`+role_absence+`">Votre anciene valeur : `+role_absence+`</option>                
+<option  value="0">Agent non autorisé</option>
+<option  value="1">Utilisateur</option>
+<option  value="2">Admin</option>
 </select>` );
 
 }
