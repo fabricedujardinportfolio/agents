@@ -21,7 +21,7 @@ if(isset($_REQUEST['valider']))	//button name is "btn_login"
 	{
 		try
 		{
-			$select_stmt=$conn->prepare("SELECT agents.id,agents.role_absence,agents.name,agents.first_name,agents.function,agents.passwords,agents.active,agents.email,agents.poles_services_id,agents_has_applications.agents_id,agents_has_applications.applications_id,agents_has_applications.droit,poles_services.name_pole_service,poles_services.phone FROM `agents`,`agents_has_applications`,`poles_services`,`applications` WHERE agents.id= agents_has_applications.agents_id AND poles_services.id=agents.poles_services_id AND agents_has_applications.applications_id=applications.id AND agents.email=:uemail"); //sql select query
+			$select_stmt=$conn->prepare("SELECT agents.id,agents.role_absence,agents.role_bddagents,agents.name,agents.first_name,agents.function,agents.passwords,agents.active,agents.email,agents.poles_services_id,agents_has_applications.agents_id,agents_has_applications.applications_id,agents_has_applications.droit,poles_services.name_pole_service,poles_services.phone FROM `agents`,`agents_has_applications`,`poles_services`,`applications` WHERE agents.id= agents_has_applications.agents_id AND poles_services.id=agents.poles_services_id AND agents_has_applications.applications_id=applications.id AND agents.email=:uemail"); //sql select query
 			$select_stmt->execute(array(':uemail'=>$email));	//execute query with bind parameter
 			$row=$select_stmt->fetch(PDO::FETCH_ASSOC);	            
             // var_dump($row);   		
@@ -38,8 +38,8 @@ if(isset($_REQUEST['valider']))	//button name is "btn_login"
                     $_SESSION["agents_app_id"] = $row["agents_id"];
                     $agents_app_id = $_SESSION["agents_app_id"];
                     // var_dump($agents_app_id); 
-                    $_SESSION["role_absence"] = $row["role_absence"];
-                    $role_absence = $_SESSION["role_absence"];
+                    $_SESSION["role_bddagents"] = $row["role_bddagents"];
+                    $role_bddagents = $_SESSION["role_bddagents"];
                     // var_dump($applications_id);                    
                     $_SESSION["active"] = $row["active"];
                     $active = $_SESSION["active"];
@@ -47,7 +47,7 @@ if(isset($_REQUEST['valider']))	//button name is "btn_login"
                     $_SESSION["droit"] = $row["droit"];
                     $droit = $_SESSION["droit"];
                     // var_dump($droit);
-                    if ($active=="1" && $role_absence != 0) {
+                    if ($active=="1" && $role_bddagents != 0) {
                         if($password==$row["passwords"]) //check condition user taypable "password" is match from database "password" using password_verify() after continue
                         {
                             $_SESSION["user_login"] = $row["id"];

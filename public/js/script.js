@@ -68,7 +68,7 @@ function set_poles(item) {
 	$('#nameUserListe').hide();	
 }
   
-function update(dataid,poleService,name,firstName,fonction,poles_services_id,role_ressource,role_absence) {		
+function update(dataid,poleService,name,firstName,fonction,poles_services_id,role_ressource,role_absence,role_numVert) {		
 	// id du post
 	console.log(dataid); 
 	console.log(poleService); 
@@ -78,6 +78,7 @@ function update(dataid,poleService,name,firstName,fonction,poles_services_id,rol
 	console.log(poles_services_id); 
 	console.log(role_ressource); 
 	console.log(role_absence); 
+	console.log(role_numVert); 
 
 	// $(".active-"+dataid).hide();	
 $("#button-absence-"+dataid).hide();
@@ -134,6 +135,15 @@ $(".role_absence-"+dataid).html(`
 <select class="form-select" id="inputGroupSelect02" name="role_absences" type="text"  placeholder='`+role_absence+`' 
 onblur="(this.type='text')">		
 <option value="`+role_absence+`">Votre anciene valeur : `+role_absence+`</option>                
+<option  value="0">Agent non autorisé</option>
+<option  value="1">Utilisateur</option>
+<option  value="2">Admin</option>
+</select>` );
+
+$(".role_numVert-"+dataid).html(`
+<select class="form-select" id="inputGroupSelect02" name="role_numVerts" type="text"  placeholder='`+role_numVert+`' 
+onblur="(this.type='text')">		
+<option value="`+role_numVert+`">Votre anciene valeur : `+role_numVert+`</option>                
 <option  value="0">Agent non autorisé</option>
 <option  value="1">Utilisateur</option>
 <option  value="2">Admin</option>

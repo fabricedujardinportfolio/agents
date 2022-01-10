@@ -47,11 +47,14 @@ if (isset($_POST['valider']))
       $role_absences = $_POST['role_absences'];
       $role_absencesInt = (int)$role_absences;
       $firstName = $_POST['firstName'];
+      
+      $role_numVert = $_POST['role_numVerts'];
+      $role_numVertInt = (int)$role_numVert;
       // var_dump($name,$firstName,$function,$idUser,$role_ressource,$role_ressourceInt);
       // $active = $_POST['button-active'] ;
       // $idUser = $_POST['idUser'] ;
-      $stmt = $conn->prepare('UPDATE `agents` SET name = ?, first_name=? , `function` = ? ,poles_services_id= ? ,role_ressource= ? ,role_absence= ? WHERE agents.id = ?');
-      $stmt->execute([$name, $firstName, $function, $poles_services_id, $role_ressourceInt,$role_absencesInt, $idUser]);
+      $stmt = $conn->prepare('UPDATE `agents` SET name = ?, first_name=? , `function` = ? ,poles_services_id= ? ,role_ressource= ? ,role_absence= ? ,role_numVert= ? WHERE agents.id = ?');
+      $stmt->execute([$name, $firstName, $function, $poles_services_id, $role_ressourceInt,$role_absencesInt,$role_numVertInt, $idUser]);
       // $test = header('refresh:2; index.php');
       $msgupdate = '<spans class="alert alert-success mt-5 mt-md-0" role="alert">Mis à jour avec succés!</span>';
       header("refresh:2; /index.php");
@@ -85,7 +88,7 @@ else :
     <?php
     try {
       $pole_service = "pole_service";
-      $stmt = $conn->prepare('SELECT agents.id,agents.role_absence,agents.poles_services_id,agents.name,agents.first_name,agents.function,agents.active,poles_services.name_pole_service,role_ressource
+      $stmt = $conn->prepare('SELECT agents.id,agents.role_absence,agents.poles_services_id,agents.name,agents.first_name,agents.function,agents.active,poles_services.name_pole_service,role_ressource,role_numVert
     FROM `poles_services`,`agents`
     WHERE poles_services_id=agents.poles_services_id 
     AND agents.poles_services_id=poles_services.id
@@ -106,12 +109,13 @@ else :
     <div class="col-12 d-md-flex d-none py-2 px-0 text-uppercase text-center " style="background-color:#2e4f9b;color:white; font-size: 1.2em;">
       <div class="col-md-2 align-self-center"> Pôle </div>
       <div class="col-md-2 align-self-center"> Nom </div>
-      <div class="col-md-2 text-md-start ps-md-5 align-self-center"> Prénom </div>
+      <div class="col-md-1 text-md-start ps-md-5 align-self-center"> Prénom </div>
       <div class="col-md-1 text-md-end align-self-center"> Fonction</div>
       <div class="col-md-1  align-self-center">Active</div>
       <div class="col-md-1  align-self-center">Rôle ressources</div>
       <div class="col-md-1  align-self-center">Rôle absences</div>
-      <div class="col-md-2  text-center align-self-center">Action</div>
+      <div class="col-md-2  align-self-center">Rôle numéro vert</div>
+      <div class="col-md-1  text-center align-self-center">Action</div>
     </div>
 
     <?php foreach ($posts as $post) : ?>
@@ -126,7 +130,7 @@ else :
             <?= $post['name'] ?>
           </span>
         </div>
-        <div class="col-md-2 text-md-start ps-md-5 mt-2">
+        <div class="col-md-1 text-md-start ps-md-5 mt-2">
           <span class="first_name-<?= $post['id'] ?>">
             <?= $post['first_name'] ?>
           </span>
@@ -172,9 +176,22 @@ else :
             ?>
           </span>
         </div>
+        <div class="col-1 text-md-end mt-2" style="margin-left: 60px;">
+          <span class="role_numVert-<?= $post['id'] ?>">
+            <?php
+            if ($post['role_numVert'] == 0) {
+              echo "Agent non autorisé";
+            } else if ($post['role_numVert'] == 1) {
+              echo "Utilisateur";
+            } else {
+              echo "Admin";
+            }
+            ?>
+          </span>
+        </div>
         <div class="col-md-2  text-center align-self-center">
           <span>
-            <button type='button' id="button-absence-<?= $post['id'] ?>" class='btn btn-sm btn-outline-secondary ' onclick="update('<?= $post['id'] ?>','<?= $post['name_pole_service'] ?>','<?= $post['name'] ?>','<?= $post['first_name'] ?>','<?= $post['function'] ?>','<?= $post['poles_services_id'] ?>','<?= $post['role_ressource'] ?>','<?= $post['role_absence'] ?>')">Modifier</button>
+            <button type='button' id="button-absence-<?= $post['id'] ?>" class='btn btn-sm btn-outline-secondary ' onclick="update('<?= $post['id'] ?>','<?= $post['name_pole_service'] ?>','<?= $post['name'] ?>','<?= $post['first_name'] ?>','<?= $post['function'] ?>','<?= $post['poles_services_id'] ?>','<?= $post['role_ressource'] ?>','<?= $post['role_absence'] ?>','<?= $post['role_numVert'] ?>')">Modifier</button>
             <button id="button-valider-absence-<?= $post['id'] ?>" type="submit" class="btn btn-sm" name="valider" style="background-color:#2e4f9b; color:white ;display:none">valider</button>
           </span>
 
